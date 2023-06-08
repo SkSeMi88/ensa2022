@@ -313,6 +313,7 @@ function resetPoiskFiltr(){
         if ((key=="new_thems[]")||(key=="thems"))
         {
             thems.push(value);
+<<<<<<< HEAD
             continue;
         }
         
@@ -320,12 +321,22 @@ function resetPoiskFiltr(){
         {
             persons.push(value);
             continue;
+=======
+        }
+
+        else if ((key=="new_persons[]")||(key=="persons"))
+        {
+            persons.push(value);
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
         }
         else
         {
             console.log(key, value);
+<<<<<<< HEAD
             data[key]  = "";
             document.querySelector("#"+key).value="";
+=======
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
         }
     }
     console.log(thems);

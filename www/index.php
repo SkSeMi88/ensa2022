@@ -47,18 +47,32 @@
 //     $route = $_GET['route'] ?? '';
     
 
+<<<<<<< HEAD
 //     $api_routes     = require __DIR__ . '/../src/routes_api.php';
 //     $routes         = require __DIR__ . '/../src/routes.php';
 //     $admin_settings = require '../src/settings.php';
+=======
+    $api_routes     = require __DIR__ . '/../src/routes_api.php';
+    $routes         = require __DIR__ . '/../src/routes.php';
+    $admin_settings = require '../src/settings.php';
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
     
 //     echo "<pre>";
 //     // var_dump($routes);
     
+<<<<<<< HEAD
 //     // var_dump($admin_settings["admin_routes"]);
 //     $tmp_routes			= array_merge($routes, $admin_settings["admin_routes"],$api_routes);
     
 //     $routes		= $tmp_routes;
 //     var_dump($routes);
+=======
+    // var_dump($admin_settings["admin_routes"]);
+    $tmp_routes			= array_merge($routes, $admin_settings["admin_routes"],$api_routes);
+    
+    $routes		= $tmp_routes;
+    var_dump($routes);
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
     
 //     echo "</pre>";
 

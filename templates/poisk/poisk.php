@@ -808,7 +808,11 @@
     <div style="width:70%;">
 
         <span>
+<<<<<<< HEAD
             Добавленые персоналии в этот фильтр поиска:
+=======
+            Добавленые персоналии в этот филтр поиска:
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
         </span>
 
         <div id="persons_list_box" name="persons_list_box">
@@ -857,6 +861,10 @@
                     {
                         $persons    = array_merge($persons, $_REQUEST["new_persons"]);
                     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
                 }
 
                 if ((isset($_REQUEST["new_person"])))
@@ -865,6 +873,7 @@
                     {
                         $persons[]  = $_REQUEST["new_person"];
                     }
+<<<<<<< HEAD
                 }
                 
                 // $persons = $tmp_persons;
@@ -878,6 +887,23 @@
                     $btn_link = "document.location.href='../../persons/card/".$k."'";
                     echo '<input type="button" name="" value="->" onClick='.$btn_link.'>';
                     echo '</div>';
+=======
+
+                }
+                
+                // $persons = $tmp_persons;
+
+
+                foreach($persons AS $k => $person)
+                {
+                    echo '<div id="line_person_id_'.$k.'">';
+                    echo '<input type="text" id="persons_'.$k.'" name="persons['.$k.']" value="'.$person.'"  class="cardThem">';
+                    echo '<input type="button" name="" value="X" onClick="deleteCardPerson('.$k.')">';
+                    $btn_link = "document.location.href='../../persons/card/".$k."'";
+                    echo '<input type="button" name="" value="->" onClick='.$btn_link.'>';
+                    echo '</div>';
+
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
                 }
             ?>
         </div>
@@ -908,6 +934,7 @@
 
 <hr>
 <div>
+<<<<<<< HEAD
     <?php $count_cards   = count($cards);?>
     Результат поиска <?= $count_cards;?>
 </div>
@@ -932,6 +959,11 @@ if ($count_cards>0)
 
 ?>
 
+=======
+    Результат поиска
+</div>
+
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
 <script src="/ensa/js/ensa.js"></script>
 </body>
 

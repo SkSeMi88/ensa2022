@@ -1,7 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 echo "TEST API";
 
+=======
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
 // require __DIR__ . '/../../vendor/autoload.php';
 
 // $entity = [

@@ -84,9 +84,12 @@ class PoiskApiController extends AbstractController
 
 		header('Location: /api/articles/' . $article->getId(), true, 302);
 	}
+<<<<<<< HEAD
 
 	public function test()
 	{
 		echo "test api";
 	}
+=======
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
 }

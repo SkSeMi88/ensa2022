@@ -526,9 +526,15 @@ class MainController extends AbstractController
         // $this->view->setVar('user', $this->user);
 
 
+<<<<<<< HEAD
         // if ($this->user === null) {
         //     throw new UnauthorizedException();
         // }
+=======
+        if ($this->user === null) {
+            throw new UnauthorizedException();
+        }
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
 
         // $this->view2    = new View(__DIR__ . '/../../../templates');
         // $this->view->setVar('view2', $this->view2);
@@ -539,23 +545,38 @@ class MainController extends AbstractController
     	$error        = [];
         $persons    = Person::findAllByASC("name");
         $cards      = Card::findAllByASC("doc_header");
+<<<<<<< HEAD
         $ThemList   = ThemList::findAllByASC("name");
+=======
+        $ThemList  = ThemList::findAllByASC("name");
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
 
         // var_dump($persons);
         $count_all	= count($persons);
         $this->view->setVar('count_all', $count_all);
+<<<<<<< HEAD
 
         $cards_poisk    = [];
         
         // var_dump($cards);
 
+=======
+        
+        // var_dump($cards);
+
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
         if (!empty($_POST)){
 
             $lines  = [];
             foreach($Fields AS $field)
             {
+<<<<<<< HEAD
                 $con1   = (!isset($_REQUEST[$field."_filtr"]));
                 $con2   = ($_REQUEST[$field."_filtr"]=="0");
+=======
+                $con1    = (!isset($_REQUEST[$field."_filtr"]));
+                $con2    = ($_REQUEST[$field."_filtr"]=="0");
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
                 $con    = (($con1))||(($con2));
                 echo "<br>".$field."    >   ".$con1."    >   ".$con2."    >   ".$con;
                 
@@ -625,6 +646,10 @@ class MainController extends AbstractController
         }
 
             // $this->view->renderHtml('poisk/poisk.php', ['persons' => $persons, 'cards' => $cards, 'error' => $error, 'msg'=>$msg, "UserMenu" =>$this->UserMenu]);
+<<<<<<< HEAD
             $this->view->renderHtml('poisk/poisk.php', ['ThemList' => $ThemList,'PersonList' => $persons, 'cards' => $cards, 'error' => $error, 'msg'=>$msg, "cards" => $cards_poisk]);
+=======
+            $this->view->renderHtml('poisk/poisk.php', ['ThemList' => $ThemList,'PersonList' => $persons, 'cards' => $cards, 'error' => $error, 'msg'=>$msg]);
+>>>>>>> a30208e1742a64943574920e2df4fe8fc7726c92
     }
 }
