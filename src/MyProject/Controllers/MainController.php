@@ -12,15 +12,29 @@ use MyProject\Models\Fonds\Fond;
 use MyProject\Models\Opisi\Opis;
 use MyProject\Models\Dela\Delo;
 
+use MyProject\Models\Site\Site;
+
 use MyProject\Models\Persons\Person;
 use MyProject\Models\Persons\PersonTest;
 use MyProject\Models\Persons\CardPerson;
 
-
+use MyProject\Models\Thems\ThemList;
 
 use MyProject\Exceptions;//\DbException;
 
+// use MyProject\Services\UsersAuthService;
+
+use MyProject\Exceptions\ForbiddenException;
+use MyProject\Exceptions\UnauthorizedException;
+use MyProject\Exceptions\InvalidArgumentException;
+
+use MyProject\Models\Users\UserActivationService;
+
+use MyProject\Services\EmailSender;
 use MyProject\Services\UsersAuthService;
+
+use function PHPSTORM_META\type;
+
 
 class MainController extends AbstractController
 {
@@ -34,8 +48,13 @@ class MainController extends AbstractController
     {
 
         $this->user = UsersAuthService::getUserByToken();
+        // var_dump($this->user);
         $this->view = new View(__DIR__ . '/../../../templates');
         $this->view->setVar('user', $this->user);
+        
+        $this->UserMenu	= Site::getUserMenu($this->user);
+        $this->view->setVar('UserMenu', $this->UserMenu);
+        // var_dump($this);
 
         // $this->view = new View(__DIR__ . '/../../../templates');
         // $this->db = new Db();
@@ -462,8 +481,57 @@ class MainController extends AbstractController
 
     public function poisk()
     {
-        $this->view2    = new View(__DIR__ . '/../../../templates');
-        $this->view->setVar('view2', $this->view2);
+
+        $Fields = [
+            'doc_type',
+            'event_date',
+            'card_date',
+            'event_place',
+            'card_place',
+            'doc_header',
+            // 'new_fond',
+            // 'new_opis',
+            // 'new_delo',
+            // 'new_list',
+            'original',
+            'langs',
+            'playback',
+            'state',
+            'compiler',
+            'compilation_date',
+            'summary',
+            // 'thems',
+            // 'new_thems',
+            // 'new_person',
+            // 'persons',
+            // 'edit_card',
+        ];
+
+        $FiltrFields = [
+            'doc_type_filtr',
+            'event_date_filtr',
+            'doc_header_filtr',
+            'original_filtr',
+            'langs_filtr',
+            'playback_filtr',
+            'state_filtr',
+            'compiler_filtr',
+            'compilation_date_filtr',
+            'summary_filtr',
+            'thems_filtr',
+            'persons_filtr',
+        ];
+        // $this->user = UsersAuthService::getUserByToken();
+        // $this->view = new View(__DIR__ . '/../../../templates');
+        // $this->view->setVar('user', $this->user);
+
+
+        // if ($this->user === null) {
+        //     throw new UnauthorizedException();
+        // }
+
+        // $this->view2    = new View(__DIR__ . '/../../../templates');
+        // $this->view->setVar('view2', $this->view2);
 
         // echo "<pre>";
     	// echo "СПИСОК";
@@ -471,26 +539,92 @@ class MainController extends AbstractController
     	$error        = [];
         $persons    = Person::findAllByASC("name");
         $cards      = Card::findAllByASC("doc_header");
+        $ThemList   = ThemList::findAllByASC("name");
 
-        var_dump($persons);
+        // var_dump($persons);
         $count_all	= count($persons);
         $this->view->setVar('count_all', $count_all);
-        
-        var_dump($cards);
 
-        echo "<pre> Получена форма поиска";
-        var_dump($_POST);
-        echo "</pre>";
+        $cards_poisk    = [];
+        
+        // var_dump($cards);
+
         if (!empty($_POST)){
+
+            $lines  = [];
+            foreach($Fields AS $field)
+            {
+                $con1   = (!isset($_REQUEST[$field."_filtr"]));
+                $con2   = ($_REQUEST[$field."_filtr"]=="0");
+                $con    = (($con1))||(($con2));
+                echo "<br>".$field."    >   ".$con1."    >   ".$con2."    >   ".$con;
+                
+                // Пропускаем невыбранные и не поступившие в форме поля фильтра поиска
+                // if ((!isset($_REQUEST[$field."_filtr"]))||($_REQUEST[$field."_filtr"]=="0"))
+                if ($con){
+                    continue;
+                }
+
+                if ($_REQUEST[$field."_filtr"]=="1")
+                {
+
+                    $lines[] = '('.$field.' = "'.$_REQUEST[$field].'")';
+                }
+
+                if ($_REQUEST[$field."_filtr"]=="2")
+                {
+
+                    $lines[] = '('.$field.'<>"'.$_REQUEST[$field].'")';
+                }
+
+                if ($_REQUEST[$field."_filtr"]=="3")
+                {
+
+                    $lines[] = '('.$field.' LIKE "%'.$_REQUEST[$field].'%")';
+                }
+
+                if ($_REQUEST[$field."_filtr"]=="4")
+                {
+
+                    $lines[] = '('.$field.' IN ('.$_REQUEST[$field].'))';
+                }
+
+            }
+
+            echo "<pre> Получена форма поиска";
             var_dump($_POST);
-            
+            echo"<hr>";
+            var_dump($lines);
+            echo "</pre>";
+            // var_dump($_POST);
+
             if (isset($_POST["poisk-btn"])){
                 echo "<pre> Запрошены поля:";
                 print_r(array_keys($_POST));
                 echo "</pre>";
             }
+
+            if (count($lines)>0)
+            {
+
+                $SQL    = 'SELECT * from cards ';
+                $WHERE  = implode(" AND ", $lines) ;
+                $SQL    .= " WHERE ".$WHERE.";";
+                echo($SQL);
+                $cards_poisk    = Card::query($SQL);
+                for($i=0; $i<count($cards_poisk); $i++)
+                {
+                    $card               = $cards_poisk[$i];
+                    $card               = Card::getCardView($card->getId());
+                    $cards_poisk[$i]    = $card;
+                }
+                echo "<pre>";
+                var_dump($cards_poisk);
+                echo "</pre>";
+            }
         }
 
-            $this->view->renderHtml('poisk/poisk.php', ['persons' => $persons, 'cards' => $cards, 'error' => $error, 'msg'=>$msg]);
+            // $this->view->renderHtml('poisk/poisk.php', ['persons' => $persons, 'cards' => $cards, 'error' => $error, 'msg'=>$msg, "UserMenu" =>$this->UserMenu]);
+            $this->view->renderHtml('poisk/poisk.php', ['ThemList' => $ThemList,'PersonList' => $persons, 'cards' => $cards, 'error' => $error, 'msg'=>$msg, "cards" => $cards_poisk]);
     }
 }

@@ -20,7 +20,7 @@ return [
 		'host'		=> 'localhost',
 		'dbname'	=> 'cq28624_ensa',
 		'user'		=> 'root',
-		'password'	=> '',
+		'password'	=> 'root',
 	],
 
 	"core_sevices"	=> [

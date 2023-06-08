@@ -61,6 +61,8 @@
 	<div class="user-line">
 		<?php
 
+			// var_dump($this);
+
 	        if ($user!==null)
 	        {
 
