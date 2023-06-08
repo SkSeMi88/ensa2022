@@ -4,23 +4,23 @@ return [
 /*
 	'db' => [
 		'host'		=> 'localhost',
-		'dbname'		=> 'ensa',
-		'user'		=> 'root',
-		'password'	=> 'root',
+		'dbname'		=> '******',
+		'user'		=> '********',
+		'password'	=> '************',
 	],
 */
 	// 'db' => [
 	// 	'host'		=> 'localhost',
-	// 	'dbname'	=> 'cq28624_ensa',
-	// 	'user'		=> 'cq28624_ensa',
-	// 	'password'	=> 'Ensa2021',
+	// 	'dbname'	=> '*************',
+	// 	'user'		=> '***************',
+	// 	'password'	=> '************',
 	// ],
 
 	'db' => [
 		'host'		=> 'localhost',
-		'dbname'	=> 'cq28624_ensa',
-		'user'		=> 'root',
-		'password'	=> 'root',
+		'dbname'	=> '*********',
+		'user'		=> '***********',
+		'password'	=> '****************',
 	],
 
 	"core_sevices"	=> [
